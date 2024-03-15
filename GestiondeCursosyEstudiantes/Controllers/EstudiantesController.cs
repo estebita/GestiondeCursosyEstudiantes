@@ -28,19 +28,27 @@ namespace GestiondeCursosyEstudiantes.Controllers
             }
 
         }
-        public void ListaEstudiantes()
+        public string ListaEstudiantes(bool imprimirEnConsola = true)
         {
+            StringBuilder resultado = new StringBuilder();
             try
             {
-
                 using (var context = new ApplicationDbContext())
                 {
                     var estudiantes = context.Estudiantes.ToList();
                     foreach (var estudiante in estudiantes)
                     {
-                        Console.WriteLine($"Id: {estudiante.Id}, Nombre: {estudiante.Nombre}, Edad: {estudiante.Edad}");
-                    }
+                        var estudianteInfo = $"Id: {estudiante.Id}, Nombre: {estudiante.Nombre}, Edad: {estudiante.Edad}";
 
+                        if (imprimirEnConsola)
+                        {
+                            Console.WriteLine(estudianteInfo);
+                        }
+                        else
+                        {
+                            resultado.AppendLine(estudianteInfo);
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -48,7 +56,9 @@ namespace GestiondeCursosyEstudiantes.Controllers
                 Log.Error(ex, "Ocurrió un error durante la ejecución");
             }
 
+            return resultado.ToString();
         }
+
 
         public static bool ExisteEstudiante(int idEstudiante)
         {

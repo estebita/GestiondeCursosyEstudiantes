@@ -25,6 +25,10 @@ namespace xUnitTestProject
                 output.WriteLine("resultadoOperacion no tiene errores. resultadoOperacion.OperacionExitosa: " + resultadoOperacion.OperacionExitosa);
             }
         }
+        public static void VerTexto(string texto, ITestOutputHelper output)
+        {
+            output.WriteLine(texto);
+        }
 
     }
 }

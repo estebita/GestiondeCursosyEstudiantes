@@ -29,8 +29,10 @@ namespace GestiondeCursosyEstudiantes.Controllers
             }
 
         }
-        public void ListaPagoEstudiantes()
+        public string ListaPagoEstudiantes(bool imprimirEnConsola = true)
         {
+            StringBuilder resultado = new StringBuilder();
+
             try
             {
                 using (var context = new ApplicationDbContext())
@@ -38,21 +40,31 @@ namespace GestiondeCursosyEstudiantes.Controllers
                     var pagosEstudiantes = context.PagosEstudiantes.ToList();
                     foreach (var pagoestudiante in pagosEstudiantes)
                     {
-                        Console.WriteLine($"Id: {pagoestudiante.Id}, IdEstudiante: {pagoestudiante.IdEstudiante}," +
+                        var linea = $"Id: {pagoestudiante.Id}, IdEstudiante: {pagoestudiante.IdEstudiante}," +
                             $" IdCurso: {pagoestudiante.IdCurso}, Tarifa: {pagoestudiante.TarifaInscripcion}," +
-                            $" Fecha de pago: {pagoestudiante.FechaPago.ToString("dd/MM/yyyy")}");
+                            $" Fecha de pago: {pagoestudiante.FechaPago.ToString("dd/MM/yyyy")}";
+                        if (imprimirEnConsola)
+                        {
+                            Console.WriteLine(linea);
+                        }
+                        else
+                        {
+                            resultado.AppendLine(linea);
+                        }
                     }
                 }
+
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Ocurrió un error durante la ejecución");
             }
-
+            return resultado.ToString();
         }
 
-        public void ListaEstudiantesCursando(DateTime desdeFecha, DateTime hastaFecha)
+        public string ListaEstudiantesCursando(DateTime desdeFecha, DateTime hastaFecha, bool imprimirEnConsola = true)
         {
+            StringBuilder resultado = new StringBuilder();
             try
             {
                 using (var context = new ApplicationDbContext())
@@ -65,13 +77,22 @@ namespace GestiondeCursosyEstudiantes.Controllers
 
                     foreach (var pago in pagosCursos)
                     {
-                        Console.WriteLine($"IdPago: {pago.Id}, " +
+                        var linea = $"IdPago: {pago.Id}, " +
                                           $"IdEstudiante: {pago.Estudiante.Id}, " +
                                           $"Nombre: {pago.Estudiante.Nombre}, " +
                                           $"IdCurso: {pago.Curso.Id}, " +
                                           $"Curso: {pago.Curso.Nombre}, " +
                                           $"Desde: {pago.Curso.FechaInicio.ToString("dd/MM/yyyy")}, " +
-                                          $"Hasta: {pago.Curso.FechaFinalizacion.ToString("dd/MM/yyyy")}");
+                                          $"Hasta: {pago.Curso.FechaFinalizacion.ToString("dd/MM/yyyy")}";
+
+                        if (imprimirEnConsola)
+                        {
+                            Console.WriteLine(linea);
+                        }
+                        else
+                        {
+                            resultado.AppendLine(linea);
+                        }
                     }
                 }
             }
@@ -79,6 +100,8 @@ namespace GestiondeCursosyEstudiantes.Controllers
             {
                 Log.Error(ex, "Ocurrió un error durante la ejecución");
             }
+            return resultado.ToString();
+
         }
     }
 }

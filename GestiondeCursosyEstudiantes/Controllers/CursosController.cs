@@ -28,18 +28,27 @@ namespace GestiondeCursosyEstudiantes.Controllers
             }
 
         }
-        public void ListaCursos()
+        public string ListaCursos(bool imprimirEnConsola = true)
         {
+            StringBuilder resultado = new StringBuilder();
             try
             {
-
                 using (var context = new ApplicationDbContext())
                 {
                     var Cursos = context.Cursos.ToList();
                     foreach (var curso in Cursos)
                     {
-                        Console.WriteLine($"Id: {curso.Id}, Curso: {curso.Nombre}, Tarifa: {curso.TarifaInscripcion}," +
-                            $" Dictado: {curso.FechaInicio.ToString("dd/MM/yyyy")} - {curso.FechaFinalizacion.ToString("dd/MM/yyyy")}");
+                        var linea = $"Id: {curso.Id}, Curso: {curso.Nombre}, Tarifa: {curso.TarifaInscripcion}," +
+                            $" Dictado: {curso.FechaInicio.ToString("dd/MM/yyyy")} - {curso.FechaFinalizacion.ToString("dd/MM/yyyy")}";
+
+                        if (imprimirEnConsola)
+                        {
+                            Console.WriteLine(linea);
+                        }
+                        else
+                        {
+                            resultado.AppendLine(linea);
+                        }
                     }
 
                 }
@@ -48,7 +57,7 @@ namespace GestiondeCursosyEstudiantes.Controllers
             {
                 Log.Error(ex, "Ocurrió un error durante la ejecución");
             }
-
+            return resultado.ToString();
         }
 
         public static bool ExisteCurso(int idCurso)

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
+using xUnitTestProject;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace xUnitTestProject
@@ -74,7 +75,7 @@ namespace xUnitTestProject
         }
 
     }
-    
+
     [Collection("Database Collection")]
     public class EnRegistrarCurso_
     {
@@ -175,12 +176,12 @@ namespace xUnitTestProject
     {
         private readonly ITestOutputHelper _output;
         IGatewayPago gatewayPago = new GatewayPago();
-       
+
         public EnContratarCurso_(ITestOutputHelper output)
         {
             _output = output;
         }
-  
+
         [Fact]
         public void Agrega_DeberiaRetornarValido_CuandoLosDatosSonValidos()
         {
@@ -191,12 +192,12 @@ namespace xUnitTestProject
             RegistrarEstudiante.Agrega("estudiante 2", 18);
             RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
             ResultadoOperacion resultadoOperacion = new ResultadoOperacion();
-            resultadoOperacion = contratarCurso.Agrega(2, 1); 
+            resultadoOperacion = contratarCurso.Agrega(2, 1);
             // Assert
             Assert.True(resultadoOperacion.OperacionExitosa);
             MensajesErrorxUnit.VerResultadoOperacion(resultadoOperacion, _output);
         }
-        
+
         [Fact]
         public void Agrega_DeberiaRetornarError_CuandoNoExisteElEstudiante()
         {
@@ -205,7 +206,7 @@ namespace xUnitTestProject
             // Act
             RegistrarEstudiante.Agrega("estudiante 1", 18);
             RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
-            ResultadoOperacion resultadoOperacion = contratarCurso.Agrega(3, 1); 
+            ResultadoOperacion resultadoOperacion = contratarCurso.Agrega(3, 1);
             // Assert
             Assert.False(resultadoOperacion.OperacionExitosa);
             MensajesErrorxUnit.VerResultadoOperacion(resultadoOperacion, _output);
@@ -247,7 +248,7 @@ namespace xUnitTestProject
             // Act
             RegistrarEstudiante.Agrega("estudiante 1", 18);
             RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
-            
+
             ResultadoOperacion resultadoOperacion = contratarCurso.Agrega(1, 1);
             resultadoOperacion = contratarCurso.Agrega(1, 1);
             // Assert
@@ -255,5 +256,192 @@ namespace xUnitTestProject
             MensajesErrorxUnit.VerResultadoOperacion(resultadoOperacion, _output);
         }
     }
+
+    [Collection("Database Collection")]
+    public class EnEstudiantesController_
+    {
+        private readonly ITestOutputHelper _output;
+
+        public EnEstudiantesController_(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
+        [Fact]
+        public void ListaEstudiantes_DeberiaRetornarLista()
+        {
+            // Arrange
+            // Act
+            RegistrarEstudiante.Agrega("Ema", 12);
+            RegistrarEstudiante.Agrega("Viviana", 22);
+            RegistrarEstudiante.Agrega("Esteban", 30);
+            RegistrarEstudiante.Agrega("Matusalen", 800);
+
+            EstudiantesController estudiantesController = new EstudiantesController();
+            string lista = estudiantesController.ListaEstudiantes(false);
+            // Assert
+            Assert.NotEmpty(lista);
+            _output.WriteLine("Demuestra que los estudiantes Ema y Matusalen no son agregados por estar fuera de los parametros válidos. " +
+                    "Luego emite la lista de estudiantes.");
+            MensajesErrorxUnit.VerTexto(lista, _output);
+        }
+    }
+
+    [Collection("Database Collection")]
+    public class EnCursosController_
+    {
+        private readonly ITestOutputHelper _output;
+
+        public EnCursosController_(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
+        [Fact]
+        public void ListaCursos_DeberiaRetornarLista()
+        {
+            // Arrange
+            // Act
+            RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Matemáticas", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Historia", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Español", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Inglés", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Curso con error Fecha inicio", 100, new DateTime(2000, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Curso con error Fecha finalización", 100, new DateTime(2024, 1, 1), new DateTime(2099, 1, 1));
+            RegistrarCurso.Agrega("Curso con error Fechas incoherentes", 100, new DateTime(2026, 1, 1), new DateTime(2025, 1, 1));
+
+            CursosController cursosController = new CursosController();
+            string lista = cursosController.ListaCursos(false);
+            // Assert
+            Assert.NotEmpty(lista);
+            _output.WriteLine("Demuestra que los Cursos sin errores son agregados y los lista. ");
+            MensajesErrorxUnit.VerTexto(lista, _output);
+        }
+    }
+
+    [Collection("Database Collection")]
+    public class EnPagoEstudiantesController_
+    {
+        private readonly ITestOutputHelper _output;
+        IGatewayPago gatewayPago = new GatewayPago();
+
+        public EnPagoEstudiantesController_(ITestOutputHelper output)
+        {
+            _output = output;
+        }
+
+        [Fact]
+        public void ListaPagosEstudiantes_DeberiaRetornarLista()
+        {
+            // Arrange
+            ContratarCurso contratarCurso = new ContratarCurso(gatewayPago);
+
+            // Act
+            RegistrarEstudiante.Agrega("FALLA Ema", 12);
+            RegistrarEstudiante.Agrega("Viviana", 22);
+            RegistrarEstudiante.Agrega("Esteban", 30);
+            RegistrarEstudiante.Agrega("FALLA Matusalen", 800);
+            RegistrarEstudiante.Agrega("Carlos", 23);
+            RegistrarEstudiante.Agrega("José", 24);
+            RegistrarEstudiante.Agrega("María", 25);
+
+            RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Matemáticas", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Historia", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Español", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Inglés", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Curso con error Fecha inicio", 100, new DateTime(2000, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Curso con error Fecha finalización", 100, new DateTime(2024, 1, 1), new DateTime(2099, 1, 1));
+            RegistrarCurso.Agrega("Curso con error Fechas incoherentes", 100, new DateTime(2026, 1, 1), new DateTime(2025, 1, 1));
+
+            contratarCurso.Agrega(1, 1);
+            contratarCurso.Agrega(1, 2);
+            contratarCurso.Agrega(1, 3);
+            contratarCurso.Agrega(1, 4);
+            contratarCurso.Agrega(1, 5);
+            contratarCurso.Agrega(2, 1);
+            contratarCurso.Agrega(2, 2);
+            contratarCurso.Agrega(4, 1);
+            contratarCurso.Agrega(4, 4);
+
+            // Errores que no se agregarán
+            contratarCurso.Agrega(4, 4);
+            contratarCurso.Agrega(40, 4);
+            contratarCurso.Agrega(4, 40);
+            contratarCurso.Agrega(0, 0);
+
+            PagoEstudiantesController pagoEstudiantesController = new PagoEstudiantesController();
+            string lista = pagoEstudiantesController.ListaPagoEstudiantes(false);
+
+            // Assert
+            Assert.NotEmpty(lista);
+            _output.WriteLine("Demuestra que: ");
+            _output.WriteLine("               Estudiantes validados");
+            _output.WriteLine("               Cursos válidos");
+            _output.WriteLine("               y pagos de los Estudiantes a Cursos validados");
+            _output.WriteLine("son agregados y los lista. ");
+            _output.WriteLine("");
+            MensajesErrorxUnit.VerTexto(lista, _output);
+        }
+
+
+        [Fact]
+        public void ListaEstudiantesCursando_DeberiaRetornarListaSegunParametros()
+        {
+            // Arrange
+            ContratarCurso contratarCurso = new ContratarCurso(gatewayPago);
+
+            // Act
+            RegistrarEstudiante.Agrega("FALLA Ema", 12);
+            RegistrarEstudiante.Agrega("Viviana", 22);
+            RegistrarEstudiante.Agrega("Esteban", 30);
+            RegistrarEstudiante.Agrega("FALLA Matusalen", 800);
+            RegistrarEstudiante.Agrega("Carlos", 23);
+            RegistrarEstudiante.Agrega("José", 24);
+            RegistrarEstudiante.Agrega("María", 25);
+
+            RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Matemáticas", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Historia", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Español", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Inglés", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Curso con error Fecha inicio", 100, new DateTime(2000, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Curso con error Fecha finalización", 100, new DateTime(2024, 1, 1), new DateTime(2099, 1, 1));
+            RegistrarCurso.Agrega("Curso con error Fechas incoherentes", 100, new DateTime(2026, 1, 1), new DateTime(2025, 1, 1));
+
+            contratarCurso.Agrega(1, 1);
+            contratarCurso.Agrega(1, 2);
+            contratarCurso.Agrega(1, 3);
+            contratarCurso.Agrega(1, 4);
+            contratarCurso.Agrega(1, 5);
+            contratarCurso.Agrega(2, 1);
+            contratarCurso.Agrega(2, 2);
+            contratarCurso.Agrega(4, 1);
+            contratarCurso.Agrega(4, 4);
+
+            // Errores que no se agregarán
+            contratarCurso.Agrega(6, 4);
+            contratarCurso.Agrega(40, 4);
+            contratarCurso.Agrega(4, 40);
+            contratarCurso.Agrega(0, 0);
+
+            PagoEstudiantesController pagoEstudiantesController = new PagoEstudiantesController();
+            DateTime desdeFecha = new DateTime(2024, 3, 16);
+            DateTime hastaFecha = new DateTime(2024, 7, 31);
+            Console.WriteLine();
+            Console.WriteLine(new string('-', 80));
+            // Llama al método `ListaEstudiantesCursando` con las fechas definidas
+            string lista=pagoEstudiantesController.ListaEstudiantesCursando(desdeFecha, hastaFecha,false);
+            // Assert
+            Assert.NotEmpty(lista);
+            _output.WriteLine($"Lista de estudiantes cursando en el período {desdeFecha.ToString("dd/MM/yyyy")} - {hastaFecha.ToString("dd/MM/yyyy")}");
+            _output.WriteLine("");
+            MensajesErrorxUnit.VerTexto(lista, _output);
+        }
+    }
 }
+
+
+
 
