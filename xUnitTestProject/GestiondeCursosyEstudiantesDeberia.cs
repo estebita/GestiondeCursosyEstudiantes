@@ -185,12 +185,19 @@ namespace xUnitTestProject
         [Fact]
         public void Agrega_DeberiaRetornarValido_CuandoLosDatosSonValidos()
         {
+            //Asegurarse de que se borra y recrea la base de datos
+            using (var dbContext = new ApplicationDbContext())
+            {
+                dbContext.Database.EnsureDeleted();
+            }
+
             // Arrange
             ContratarCurso contratarCurso = new ContratarCurso(gatewayPago);
             // Act
             RegistrarEstudiante.Agrega("estudiante 1", 18);
             RegistrarEstudiante.Agrega("estudiante 2", 18);
             RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+
             ResultadoOperacion resultadoOperacion = new ResultadoOperacion();
             resultadoOperacion = contratarCurso.Agrega(2, 1);
             // Assert
@@ -206,6 +213,7 @@ namespace xUnitTestProject
             // Act
             RegistrarEstudiante.Agrega("estudiante 1", 18);
             RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+
             ResultadoOperacion resultadoOperacion = contratarCurso.Agrega(3, 1);
             // Assert
             Assert.False(resultadoOperacion.OperacionExitosa);
@@ -229,6 +237,12 @@ namespace xUnitTestProject
         [Fact]
         public void Agrega_DeberiaRetornarError_PruebaMultiplesErrores()
         {
+            //Asegurarse de que se borra y recrea la base de datos
+            using (var dbContext = new ApplicationDbContext())
+            {
+                dbContext.Database.EnsureDeleted();
+            }
+
             // Arrange
             ContratarCurso contratarCurso = new ContratarCurso(gatewayPago);
             // Act
@@ -255,6 +269,34 @@ namespace xUnitTestProject
             Assert.False(resultadoOperacion.OperacionExitosa);
             MensajesErrorxUnit.VerResultadoOperacion(resultadoOperacion, _output);
         }
+
+
+
+        [Fact]
+        public void Agrega_DeberiaRetornarError_CuandoNoAnduvoElPago()
+        {
+            //Simula que fallo el pago
+            gatewayPago = new GatewayPagoConFalla();
+            // Arrange
+            ContratarCurso contratarCurso = new ContratarCurso(gatewayPago);
+            // Act
+            RegistrarEstudiante.Agrega("estudiante 1", 18);
+            RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+
+            ResultadoOperacion resultadoOperacion = contratarCurso.Agrega(1, 1);
+            // Assert
+            Assert.False(resultadoOperacion.OperacionExitosa);
+            MensajesErrorxUnit.VerResultadoOperacion(resultadoOperacion, _output);
+        }
+
+
+
+
+
+
+
+
+
     }
 
     [Collection("Database Collection")]

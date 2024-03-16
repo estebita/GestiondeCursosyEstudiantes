@@ -5,7 +5,15 @@ internal class GatewayPago : IGatewayPago
 {
     public bool ProcesarPago(int idEstudiante, decimal monto)
     {
-       //throw new NotImplementedException();
-       return true;
+        return true;
+    }
+}
+
+//Para simular que el pago falló
+internal class GatewayPagoConFalla : IGatewayPago
+{
+    public bool ProcesarPago(int idEstudiante, decimal monto)
+    {
+        return false;
     }
 }

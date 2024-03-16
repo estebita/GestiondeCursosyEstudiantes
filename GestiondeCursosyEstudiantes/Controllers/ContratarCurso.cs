@@ -58,7 +58,7 @@ namespace GestiondeCursosyEstudiantes.Controllers
 
         }
 
-        public static ResultadoOperacion ValidarEstudianteCurso(int idEstudiante, int idCurso, out Curso curso)
+        private static ResultadoOperacion ValidarEstudianteCurso(int idEstudiante, int idCurso, out Curso curso)
         {
             try
             {

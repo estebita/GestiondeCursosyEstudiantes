@@ -22,6 +22,7 @@ namespace GestiondeCursosyEstudiantes
         public void AgregarError(string error)
         {
             Errores.Add(error);
+            OperacionExitosa = false;
         }
 
         public void MarcarComoExitoso()
