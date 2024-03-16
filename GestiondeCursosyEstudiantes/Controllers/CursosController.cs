@@ -35,7 +35,7 @@ namespace GestiondeCursosyEstudiantes.Controllers
             {
                 using (var context = new ApplicationDbContext())
                 {
-                    var Cursos = context.Cursos.ToList();
+                    var Cursos = context.Cursos.OrderBy(i=>i.Id).ToList();
                     foreach (var curso in Cursos)
                     {
                         var linea = $"Id: {curso.Id}, Curso: {curso.Nombre}, Tarifa: {curso.TarifaInscripcion}," +

@@ -1,4 +1,5 @@
-﻿using GestiondeCursosyEstudiantes.Models;
+﻿using Azure;
+using GestiondeCursosyEstudiantes.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
@@ -11,24 +12,7 @@ namespace GestiondeCursosyEstudiantes.Controllers
 {
     public class PagoEstudiantesController
     {
-        public void AddCurso(Curso curso)
-        {
-            try
-            {
 
-                using (var context = new ApplicationDbContext())
-                {
-                    context.Add(curso);
-                    context.SaveChanges();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Ocurrió un error durante la ejecución");
-            }
-
-        }
         public string ListaPagoEstudiantes(bool imprimirEnConsola = true)
         {
             StringBuilder resultado = new StringBuilder();
@@ -71,8 +55,8 @@ namespace GestiondeCursosyEstudiantes.Controllers
                 {
                     var pagosCursos = context.PagosEstudiantes
                         .Where(pe => pe.Curso.FechaInicio <= hastaFecha && pe.Curso.FechaFinalizacion >= desdeFecha)
-                        .Include(pe => pe.Curso)
-                        .Include(pe => pe.Estudiante)
+                        .Include(pe1 => pe1.Curso)
+                        .Include(pe2 => pe2.Estudiante)
                         .ToList();
 
                     foreach (var pago in pagosCursos)

@@ -1,7 +1,10 @@
-﻿namespace GestiondeCursosyEstudiantes.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GestiondeCursosyEstudiantes.Models
 {
     public class Estudiante
     {
+        [Key]
         public int Id { get; set; }
         public string Nombre { get; set; }
         public int Edad { get; set; }

@@ -25,8 +25,7 @@ namespace GestiondeCursosyEstudiantes
         {
             try
             {
-
-            
+                            
             modelBuilder.Entity<PagoEstudiante>()
                 .HasOne(pe => pe.Estudiante)
                 .WithMany(e => e.PagosEstudiante)
@@ -42,6 +41,7 @@ namespace GestiondeCursosyEstudiantes
                 Log.Error(ex, "Ocurrió un error durante la ejecución");
             }
         }
+
     }
 
 }

@@ -269,7 +269,13 @@ namespace xUnitTestProject
 
         [Fact]
         public void ListaEstudiantes_DeberiaRetornarLista()
-        {
+        {    
+            //Asegurarse de que se borra y recrea la base de datos
+            using (var dbContext = new ApplicationDbContext())
+            {
+                dbContext.Database.EnsureDeleted();
+            }
+
             // Arrange
             // Act
             RegistrarEstudiante.Agrega("Ema", 12);
@@ -300,6 +306,12 @@ namespace xUnitTestProject
         [Fact]
         public void ListaCursos_DeberiaRetornarLista()
         {
+            //Asegurarse de que se borra y recrea la base de datos
+            using (var dbContext = new ApplicationDbContext())
+            {
+                dbContext.Database.EnsureDeleted();
+            }
+
             // Arrange
             // Act
             RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
@@ -321,7 +333,7 @@ namespace xUnitTestProject
     }
 
     [Collection("Database Collection")]
-    public class EnPagoEstudiantesController_
+    public class EnPagoEstudiantesController_ 
     {
         private readonly ITestOutputHelper _output;
         IGatewayPago gatewayPago = new GatewayPago();
@@ -329,12 +341,20 @@ namespace xUnitTestProject
         public EnPagoEstudiantesController_(ITestOutputHelper output)
         {
             _output = output;
+
         }
 
         [Fact]
         public void ListaPagosEstudiantes_DeberiaRetornarLista()
         {
+            //Asegurarse de que se borra y recrea la base de datos
+            using (var dbContext = new ApplicationDbContext())
+            {
+                dbContext.Database.EnsureDeleted();
+            }
+
             // Arrange
+
             ContratarCurso contratarCurso = new ContratarCurso(gatewayPago);
 
             // Act
@@ -389,6 +409,11 @@ namespace xUnitTestProject
         [Fact]
         public void ListaEstudiantesCursando_DeberiaRetornarListaSegunParametros()
         {
+            //Asegurarse de que se borra y recrea la base de datos
+            using (var dbContext = new ApplicationDbContext())
+            {
+                dbContext.Database.EnsureDeleted();
+            }
             // Arrange
             ContratarCurso contratarCurso = new ContratarCurso(gatewayPago);
 
@@ -402,10 +427,10 @@ namespace xUnitTestProject
             RegistrarEstudiante.Agrega("María", 25);
 
             RegistrarCurso.Agrega("Filosofía", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
-            RegistrarCurso.Agrega("Matemáticas", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
-            RegistrarCurso.Agrega("Historia", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
-            RegistrarCurso.Agrega("Español", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
-            RegistrarCurso.Agrega("Inglés", 100, new DateTime(2024, 1, 1), new DateTime(2025, 1, 1));
+            RegistrarCurso.Agrega("Matemáticas", 100, new DateTime(2025, 1, 1), new DateTime(2026, 1, 1));
+            RegistrarCurso.Agrega("Historia", 100, new DateTime(2026, 1, 1), new DateTime(2027, 1, 1));
+            RegistrarCurso.Agrega("Español", 100, new DateTime(2027, 1, 1), new DateTime(2028, 1, 1));
+            RegistrarCurso.Agrega("Inglés", 100, new DateTime(2028, 1, 1), new DateTime(2029, 1, 1));
             RegistrarCurso.Agrega("Curso con error Fecha inicio", 100, new DateTime(2000, 1, 1), new DateTime(2025, 1, 1));
             RegistrarCurso.Agrega("Curso con error Fecha finalización", 100, new DateTime(2024, 1, 1), new DateTime(2099, 1, 1));
             RegistrarCurso.Agrega("Curso con error Fechas incoherentes", 100, new DateTime(2026, 1, 1), new DateTime(2025, 1, 1));
@@ -421,17 +446,18 @@ namespace xUnitTestProject
             contratarCurso.Agrega(4, 4);
 
             // Errores que no se agregarán
-            contratarCurso.Agrega(6, 4);
-            contratarCurso.Agrega(40, 4);
-            contratarCurso.Agrega(4, 40);
-            contratarCurso.Agrega(0, 0);
+            contratarCurso.Agrega(6, 4); // No existe el Estudiante
+            contratarCurso.Agrega(40, 4); //No existe el Estudiante
+            contratarCurso.Agrega(4, 40); // No existe el curso
+            contratarCurso.Agrega(0, 0); // ni estudiante ni curso
 
             PagoEstudiantesController pagoEstudiantesController = new PagoEstudiantesController();
             DateTime desdeFecha = new DateTime(2024, 3, 16);
-            DateTime hastaFecha = new DateTime(2024, 7, 31);
+            DateTime hastaFecha = new DateTime(2025, 7, 31);
             Console.WriteLine();
             Console.WriteLine(new string('-', 80));
-            // Llama al método `ListaEstudiantesCursando` con las fechas definidas
+            // Llama al método ListaEstudiantesCursando con las fechas definidas
+            // Deber devolver cursos de 2024 y 2025
             string lista=pagoEstudiantesController.ListaEstudiantesCursando(desdeFecha, hastaFecha,false);
             // Assert
             Assert.NotEmpty(lista);
@@ -440,8 +466,5 @@ namespace xUnitTestProject
             MensajesErrorxUnit.VerTexto(lista, _output);
         }
     }
+
 }
-
-
-
-
