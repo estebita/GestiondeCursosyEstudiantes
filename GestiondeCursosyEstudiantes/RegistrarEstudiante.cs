@@ -35,7 +35,7 @@ namespace GestiondeCursosyEstudiantes
             }
         }
 
-        public static ResultadoOperacion ValidarEstudiante(string nombre, int edad)
+        private static ResultadoOperacion ValidarEstudiante(string nombre, int edad)
         {
             try
             {

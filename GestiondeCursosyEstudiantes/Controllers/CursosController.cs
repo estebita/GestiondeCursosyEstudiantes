@@ -60,21 +60,21 @@ namespace GestiondeCursosyEstudiantes.Controllers
             return resultado.ToString();
         }
 
-        public static bool ExisteCurso(int idCurso)
-        {
-            try
-            {
-                using (var dbContext = new ApplicationDbContext())
-                {
-                    return dbContext.Cursos.Any(c => c.Id == idCurso);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, "Ocurrió un error durante la ejecución");
-            }
-            return false;
-        }
+        //public static bool ExisteCurso(int idCurso)
+        //{
+        //    try
+        //    {
+        //        using (var dbContext = new ApplicationDbContext())
+        //        {
+        //            return dbContext.Cursos.Any(c => c.Id == idCurso);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error(ex, "Ocurrió un error durante la ejecución");
+        //    }
+        //    return false;
+        //}
 
         public static Curso GetCurso(int idCurso)
         {

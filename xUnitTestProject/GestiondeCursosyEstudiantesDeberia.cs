@@ -417,15 +417,15 @@ namespace xUnitTestProject
             RegistrarCurso.Agrega("Curso con error Fecha finalización", 100, new DateTime(2024, 1, 1), new DateTime(2099, 1, 1));
             RegistrarCurso.Agrega("Curso con error Fechas incoherentes", 100, new DateTime(2026, 1, 1), new DateTime(2025, 1, 1));
 
-            contratarCurso.Agrega(1, 1);
-            contratarCurso.Agrega(1, 2);
-            contratarCurso.Agrega(1, 3);
-            contratarCurso.Agrega(1, 4);
             contratarCurso.Agrega(1, 5);
             contratarCurso.Agrega(2, 1);
             contratarCurso.Agrega(2, 2);
             contratarCurso.Agrega(4, 1);
             contratarCurso.Agrega(4, 4);
+            contratarCurso.Agrega(1, 1);
+            contratarCurso.Agrega(1, 2);
+            contratarCurso.Agrega(1, 3);
+            contratarCurso.Agrega(1, 4);
 
             // Errores que no se agregarán
             contratarCurso.Agrega(4, 4);
@@ -477,15 +477,15 @@ namespace xUnitTestProject
             RegistrarCurso.Agrega("Curso con error Fecha finalización", 100, new DateTime(2024, 1, 1), new DateTime(2099, 1, 1));
             RegistrarCurso.Agrega("Curso con error Fechas incoherentes", 100, new DateTime(2026, 1, 1), new DateTime(2025, 1, 1));
 
-            contratarCurso.Agrega(1, 1);
-            contratarCurso.Agrega(1, 2);
-            contratarCurso.Agrega(1, 3);
-            contratarCurso.Agrega(1, 4);
             contratarCurso.Agrega(1, 5);
             contratarCurso.Agrega(2, 1);
             contratarCurso.Agrega(2, 2);
             contratarCurso.Agrega(4, 1);
             contratarCurso.Agrega(4, 4);
+            contratarCurso.Agrega(1, 1);
+            contratarCurso.Agrega(1, 2);
+            contratarCurso.Agrega(1, 3);
+            contratarCurso.Agrega(1, 4);
 
             // Errores que no se agregarán
             contratarCurso.Agrega(6, 4); // No existe el Estudiante

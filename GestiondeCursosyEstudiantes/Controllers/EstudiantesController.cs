@@ -35,7 +35,7 @@ namespace GestiondeCursosyEstudiantes.Controllers
             {
                 using (var context = new ApplicationDbContext())
                 {
-                    var estudiantes = context.Estudiantes.ToList();
+                    var estudiantes = context.Estudiantes.OrderBy(i => i.Id).ToList();
                     foreach (var estudiante in estudiantes)
                     {
                         var estudianteInfo = $"Id: {estudiante.Id}, Nombre: {estudiante.Nombre}, Edad: {estudiante.Edad}";
@@ -58,7 +58,6 @@ namespace GestiondeCursosyEstudiantes.Controllers
 
             return resultado.ToString();
         }
-
 
         public static bool ExisteEstudiante(int idEstudiante)
         {

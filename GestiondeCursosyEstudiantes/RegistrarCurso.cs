@@ -35,7 +35,7 @@ namespace GestiondeCursosyEstudiantes
             }
         }
 
-        public static ResultadoOperacion ValidarCurso(string nombre, decimal tarifaInscripcion, DateTime fechaInicio, DateTime fechaFinalizacion)
+        private static ResultadoOperacion ValidarCurso(string nombre, decimal tarifaInscripcion, DateTime fechaInicio, DateTime fechaFinalizacion)
         {
             try
             {

@@ -21,7 +21,8 @@ namespace GestiondeCursosyEstudiantes.Controllers
             {
                 using (var context = new ApplicationDbContext())
                 {
-                    var pagosEstudiantes = context.PagosEstudiantes.ToList();
+                    var pagosEstudiantes = context.PagosEstudiantes
+                        .OrderBy(o => o.IdEstudiante).ThenBy(o => o.IdCurso).ToList();
                     foreach (var pagoestudiante in pagosEstudiantes)
                     {
                         var linea = $"Id: {pagoestudiante.Id}, IdEstudiante: {pagoestudiante.IdEstudiante}," +
@@ -57,6 +58,7 @@ namespace GestiondeCursosyEstudiantes.Controllers
                         .Where(pe => pe.Curso.FechaInicio <= hastaFecha && pe.Curso.FechaFinalizacion >= desdeFecha)
                         .Include(pe1 => pe1.Curso)
                         .Include(pe2 => pe2.Estudiante)
+                        .OrderBy(o=>o.IdEstudiante).ThenBy(or=>or.IdCurso)
                         .ToList();
 
                     foreach (var pago in pagosCursos)
