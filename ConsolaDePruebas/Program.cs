@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using GestiondeCursosyEstudiantes;
 using GestiondeCursosyEstudiantes.Controllers;
 using GestiondeCursosyEstudiantes.Models;
+using GestiondeCursosyEstudiantes.Services;
 using Serilog;
 using Serilog.Events;
 using System.Security.Cryptography.X509Certificates;

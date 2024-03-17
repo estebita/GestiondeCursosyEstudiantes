@@ -1,5 +1,6 @@
 ﻿using Azure;
 using GestiondeCursosyEstudiantes.Models;
+using GestiondeCursosyEstudiantes.Data;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;

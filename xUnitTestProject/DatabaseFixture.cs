@@ -1,4 +1,4 @@
-﻿using GestiondeCursosyEstudiantes;
+﻿using GestiondeCursosyEstudiantes.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Immutable;
 

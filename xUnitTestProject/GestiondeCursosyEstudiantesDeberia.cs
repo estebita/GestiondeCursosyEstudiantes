@@ -1,6 +1,8 @@
 ﻿using GestiondeCursosyEstudiantes;
 using GestiondeCursosyEstudiantes.Controllers;
+using GestiondeCursosyEstudiantes.Data;
 using GestiondeCursosyEstudiantes.Models;
+using GestiondeCursosyEstudiantes.Services;
 using Microsoft.VisualStudio.TestPlatform.Utilities;
 using System;
 using System.Collections.Generic;

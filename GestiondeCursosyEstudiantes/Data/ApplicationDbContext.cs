@@ -7,7 +7,7 @@ using GestiondeCursosyEstudiantes.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-namespace GestiondeCursosyEstudiantes
+namespace GestiondeCursosyEstudiantes.Data
 {
 
     public class ApplicationDbContext : DbContext
@@ -25,16 +25,16 @@ namespace GestiondeCursosyEstudiantes
         {
             try
             {
-                            
-            modelBuilder.Entity<PagoEstudiante>()
-                .HasOne(pe => pe.Estudiante)
-                .WithMany(e => e.PagosEstudiante)
-                .HasForeignKey(pe => pe.IdEstudiante);
 
-            modelBuilder.Entity<PagoEstudiante>()
-                .HasOne(pe => pe.Curso)
-                .WithMany(c => c.PagosEstudiante)
-                .HasForeignKey(pe => pe.IdCurso);
+                modelBuilder.Entity<PagoEstudiante>()
+                    .HasOne(pe => pe.Estudiante)
+                    .WithMany(e => e.PagosEstudiante)
+                    .HasForeignKey(pe => pe.IdEstudiante);
+
+                modelBuilder.Entity<PagoEstudiante>()
+                    .HasOne(pe => pe.Curso)
+                    .WithMany(c => c.PagosEstudiante)
+                    .HasForeignKey(pe => pe.IdCurso);
             }
             catch (Exception ex)
             {

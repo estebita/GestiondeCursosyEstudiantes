@@ -9,7 +9,7 @@ using Serilog;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
-namespace GestiondeCursosyEstudiantes
+namespace GestiondeCursosyEstudiantes.Services
 {
     public class RegistrarEstudiante
     {
@@ -17,7 +17,7 @@ namespace GestiondeCursosyEstudiantes
         {
             try
             {
-                ResultadoOperacion resultadoOperacion=new ResultadoOperacion();
+                ResultadoOperacion resultadoOperacion = new ResultadoOperacion();
                 resultadoOperacion = ValidarEstudiante(nombre, edad);
                 if (resultadoOperacion.OperacionExitosa)
                 {
@@ -52,7 +52,7 @@ namespace GestiondeCursosyEstudiantes
                     resultadoOperacion.AgregarError($"El estudiante {nombre} tiene {edad} años. Para registrarse debe ser un adulto.");
                 }
 
-                if (!resultadoOperacion.TieneErrores()) 
+                if (!resultadoOperacion.TieneErrores())
                 {
                     resultadoOperacion.MarcarComoExitoso();
                 }
@@ -75,7 +75,7 @@ namespace GestiondeCursosyEstudiantes
             return true;
         }
 
-   
+
         // Verifica si un estudiante cumple con la edad mínima para ser considerado adulto
         private static bool CumpleEdadMinima(int edad)
         {

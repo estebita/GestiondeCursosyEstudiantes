@@ -7,7 +7,7 @@ using GestiondeCursosyEstudiantes.Controllers;
 using GestiondeCursosyEstudiantes.Models;
 using Serilog;
 
-namespace GestiondeCursosyEstudiantes
+namespace GestiondeCursosyEstudiantes.Services
 {
     public class RegistrarCurso
     {

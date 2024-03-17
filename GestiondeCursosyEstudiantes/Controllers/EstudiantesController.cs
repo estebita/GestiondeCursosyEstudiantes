@@ -1,4 +1,5 @@
-﻿using GestiondeCursosyEstudiantes.Models;
+﻿using GestiondeCursosyEstudiantes.Data;
+using GestiondeCursosyEstudiantes.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;

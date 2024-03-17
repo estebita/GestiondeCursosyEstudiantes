@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using GestiondeCursosyEstudiantes;
+using GestiondeCursosyEstudiantes.Services;
 
-internal class GatewayPago : IGatewayPago
+public class GatewayPago : IGatewayPago
 {
     public bool ProcesarPago(int idEstudiante, decimal monto)
     {
