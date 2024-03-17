@@ -5,7 +5,6 @@ public class GatewayPago : IGatewayPago
 {
     public bool ProcesarPago(int idEstudiante, decimal monto)
     {
-       //throw new NotImplementedException();
-       return true;
+       throw new NotImplementedException();
     }
 }

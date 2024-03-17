@@ -291,14 +291,6 @@ namespace xUnitTestProject
             MensajesErrorxUnit.VerResultadoOperacion(resultadoOperacion, _output);
         }
 
-
-
-
-
-
-
-
-
     }
 
     [Collection("Database Collection")]

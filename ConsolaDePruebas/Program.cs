@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using ConsolaDePruebas;
 using GestiondeCursosyEstudiantes.Controllers;
 using GestiondeCursosyEstudiantes.Models;
 using GestiondeCursosyEstudiantes.Services;
@@ -25,9 +26,9 @@ static void Main(string[] args)
 
         Console.WriteLine("Se asientan pagos...");
 
+        GatewayPagoPrueba miGateWaypago = new GatewayPagoPrueba();
 
-        IGatewayPago gatewayPago = new GatewayPago(); 
-        ContratarCurso contratarCurso = new ContratarCurso(gatewayPago);
+        ContratarCurso contratarCurso = new ContratarCurso(miGateWaypago);
         contratarCurso.Agrega(2, 2);
         contratarCurso.Agrega(3, 3);
         contratarCurso.Agrega(4, 1);
