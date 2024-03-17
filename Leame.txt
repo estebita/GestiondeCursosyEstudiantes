@@ -1,0 +1,23 @@
+Esteban Pérez: estebita@gmail.com
+
+La solución está compuesta por 3 proyectos:
+
+1. ConsolaDePruebas:
+Donde iba probando cada una de las clases y métodos mientras los elaboraba para ir acotando los errores. Mostraba la salida por la consola.
+
+2. GestiondeCursosyEstudiantes:
+Es la biblioteca de clases, es de esperar que sea una solución correcta y acorde a lo solicitado.
+En base al ejercicio planteado: asumí que el listado entre un período de fechas era un listado de los alumnos que estarían cursando (y sus cursos) dentro de ese período.
+También se podría haber dividido ese listado en quienes estaban terminando un curso dentro de ese período, quienes hacían cursos completos y quienes iniciaban sin terminar un curso en ese período. 
+No hice ese reporte porque consideré que no es el espíritu del test verificar si uno puede escribir distintos queries.
+
+3. xUnitTestProject:
+El tercer proyecto es el de pruebas unitarias xUnit.
+
+Quizás como salida adicional hice que en las pruebas en donde hay algún tipo de devolución (más allá de un true o false) se pueda ver dicho mensaje en la consola de test. Por ejemplo cuando se hacen validaciones o cuando se emiten listados.
+
+El tiempo neto total de elaboración fue de unas 30 horas. Luego de las primeras 12 horas ya estaba todo andando, me demoré el resto del tiempo haciendo distintas correcciones y mejoras esperando que eso fuera mejor considerado al evaluar el trabajo.
+Disfruté y aprendí muchas cosas con el ejercicio así que estoy de por sí muy agradecido con esta oportunidad.
+
+Un saludo a quien lea este archivo.
+Esteban

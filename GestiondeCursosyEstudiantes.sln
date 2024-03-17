@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GestiondeCursosyEstudiantes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsolaDePruebas", "ConsolaDePruebas\ConsolaDePruebas.csproj", "{7C498AE4-19E9-4002-9491-5136BB078947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnitTestProject", "xUnitTestProject\xUnitTestProject.csproj", "{945D97E0-2376-4360-9CF2-CF8F489FCD3E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "xUnitTestProject", "xUnitTestProject\xUnitTestProject.csproj", "{945D97E0-2376-4360-9CF2-CF8F489FCD3E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{7B82A909-C94D-463D-A117-A345D62B4B44}"
+	ProjectSection(SolutionItems) = preProject
+		Leame.txt = Leame.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
